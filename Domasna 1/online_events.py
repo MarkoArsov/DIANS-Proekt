@@ -24,7 +24,6 @@ warnings.filterwarnings("ignore")
 
 url = 'https://www.eventbrite.com/d/online/all-events/?page=1'
 response = requests.get(url)
-response
 
 raw_html = response.text
 html = BeautifulSoup(raw_html, "html.parser")
@@ -35,33 +34,27 @@ titles = []
 for i in range(0, len(titlesRaw)):
     titles.append(titlesRaw[i].text)
 
-len(titles)
 
 dateRaw = html.select("div > div > div.search-event-card-rectangle-image > div > div > div > article > div.eds-event-card-content__content-container.eds-l-pad-right-4 > div > div > div.eds-event-card-content__primary-content > div")
 date = []
 for i in range(0, len(dateRaw)):
     date.append(dateRaw[i].text)
 
-len(date)
-
 linksRaw = html.select(" div > div > div.search-event-card-rectangle-image > div > div > div > article > div.eds-event-card-content__content-container.eds-l-pad-right-4 > div > div > div.eds-event-card-content__primary-content > a")
 links = []
 for i in range(0, len(linksRaw)):
     links.append(linksRaw[i].get('href'))
 
-len(links)
-
 data = []
 
 for i in range(0, len(titles)):
   item = {}
-  item['Title'] = titles[i]
-  item['Date'] = date[i]
-  item['Link to event'] = links[i]
+  item['Title'] = titles[i].replace(",", "")
+  item['Date'] = date[i].replace(",", "")
+  item['Link to event'] = links[i].replace(",", "")
   data.append(item)
 
 df = pd.DataFrame(data)
-df
 
 url = 'https://www.eventbrite.com/d/online/all-events/?page='
 
@@ -88,9 +81,9 @@ for i in range(2, 51):
   data1 = []
   for i in range(0, len(titles1)):
     item1 = {}
-    item1['Title'] = titles1[i]
-    item1['Date'] = date1[i]
-    item1['Link to event'] = links1[i]
+    item1['Title'] = titles1[i].replace(",", "")
+    item1['Date'] = date1[i].replace(",", "")
+    item1['Link to event'] = links1[i].replace(",", "")
     data1.append(item1)
 
   df1 = pd.DataFrame(data1)
