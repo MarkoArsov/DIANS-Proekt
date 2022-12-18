@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Event</title>
+    <title>FindFun</title>
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -59,13 +59,20 @@
             charset="utf-8"></script>
 </head>
 <body>
+
 <nav>
     <div class="nav-wrapper">
         <a href="/events" class="brand-logo">FindFun</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="login.html">Log In</a></li>
-            <li><a href="signUp.html">Sign Up</a></li>
+            <th:block th:if="${session.user == null}" >
+                <li><a href="/login">Log In</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+            </th:block>
+            <th:block th:if="${session.user != null}" >
+                <li><a href="#" th:text="${session.user.getUsername()}"></a></li>
+                <li><a href="/logout">Log Out</a></li>
+            </th:block>
         </ul>
     </div>
 </nav>
@@ -107,7 +114,6 @@
         </div>
     </div>
 </div>
-
 
 <footer class="footer">
     <p class="footer-text">Footer</p>
