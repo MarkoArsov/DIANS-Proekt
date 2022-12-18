@@ -1,0 +1,45 @@
+
+#imgDiv {
+    margin: 40px auto auto;
+    border-radius: 30px;
+    height: 400px;
+}
+
+#title {
+    color: white;
+    text-align: left;
+    font-size: 40px;
+}
+
+#smallMap {
+    color: white;
+    height: 400px;
+    border-radius: 30px;
+}
+
+#description {
+    color: white;
+    margin-bottom: 20px;
+}
+
+#comments {
+    color: white;
+    margin-bottom: 70px;
+}
+
+.card {
+    background-color: #202020;
+}
+
+.markerCard {
+    width: 150px;
+    height: auto;
+}
+
+.markerCardTitle {
+    color: white;
+    font-size: 30px;
+}
+
+
+
