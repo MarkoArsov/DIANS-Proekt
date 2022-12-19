@@ -4,101 +4,78 @@
     <meta charset="UTF-8">
     <title>FindFun</title>
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <section th:replace="fragments/links"></section>
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!-- LAYOUT CSS -->
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <section th:replace="fragments/leafletLinks"></section>
 
     <!-- LOCAL CSS -->
-    <link rel="stylesheet" href="/css/main.css">
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <!-- JQUERY -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- REACT -->
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="/css/addEvent.css">
 
     <!-- REACT COMPONENTS -->
     <script type="text/babel" src="/js/eventComponent.js"></script>
 
     <!-- LOCAL SCRIPT -->
-    <script type="text/babel" src="/js/script.js"></script>
-
-    <!-- LEAFLET -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-          integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-            integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-            crossorigin=""></script>
-
-    <!-- FULLSCREEN -->
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
-          rel='stylesheet'/>
-
-    <!-- LOCATION OF USER -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.78.0/dist/L.Control.Locate.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.78.0/dist/L.Control.Locate.min.js"
-            charset="utf-8"></script>
+    <script type="text/babel" src="/js/addEvent.js"></script>
 
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper">
-        <a href="/events" class="brand-logo">FindFun</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <th:block th:if="${session.user == null}" >
-                <li><a href="/login">Log In</a></li>
-                <li><a href="/signup">Sign Up</a></li>
-            </th:block>
-            <th:block th:if="${session.user != null}" >
-                <li><a href="#" th:text="${session.user.getUsername()}"></a></li>
-                <li><a href="/logout">Log Out</a></li>
-            </th:block>
-        </ul>
-    </div>
-</nav>
+
+<nav th:replace="fragments/header"></nav>
+
 
 <div class="container">
 
     <div class="row" id="main-div">
 
-        <div class="col s0 l7" id="main-map">
+        <div class="col s0 l7" id="add-event-map">
             MAP
         </div>
 
 
         <div class="col s12 l5" id="event-form">
 
+            <div id="title">
+                <h1>Add New Event</h1>
+            </div>
+
             <form method="POST" action="#">
-                <input type="hidden" name="lat">
-                <input type="hidden" name="lan">
+
+                <input type="hidden" name="lat" id="lat">
+                <input type="hidden" name="lng" id="lng">
+
+                <div class="input-field">
+                    <input type="text" name="name" placeholder="Event Name">
+                </div>
+
+                <div class="input-field">
+                    <textarea name="about" placeholder="Event Description"></textarea>
+<!--                    <input type="text" name="about" placeholder="Event Description">-->
+                </div>
+
+                <div class="input-field">
+                    <input type="text" name="category" placeholder="Category">
+                </div>
+
+                <div class="input-field">
+                    <input type="text" name="imgPath" placeholder="Image Url">
+                </div>
+
+                <div class="input-field">
+                    <input type="datetime-local" name="date"/>
+                </div>
+
+                <div class="input-field">
+                    <input type="submit" value="Submit">
+                </div>
 
             </form>
-
         </div>
 
 
     </div>
 </div>
 
-<footer class="footer">
-    <p class="footer-text">Footer</p>
-</footer>
-
+<footer th:replace="fragments/footer"></footer>
 </body>
 
 </html>

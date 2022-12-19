@@ -5,29 +5,12 @@
 
     <title>FindFun</title>
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <section th:replace="fragments/links"></section>
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!-- LAYOUT CSS -->
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <section th:replace="fragments/leafletLinks"></section>
 
     <!-- LOCAL CSS -->
     <link rel="stylesheet" href="/css/event.css">
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <!-- JQUERY -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- REACT -->
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <!-- REACT COMPONENTS -->
     <script type="text/babel" src="/js/eventComponent.js"></script>
@@ -39,43 +22,10 @@
     <!-- LOCAL SCRIPT -->
     <script type="text/babel" src="/js/eventScript.js"></script>
 
-    <!-- LEAFLET -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-          integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-            integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-            crossorigin=""></script>
-
-    <!-- FULLSCREEN -->
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
-          rel='stylesheet'/>
-
-    <!-- LOCATION OF USER -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.78.0/dist/L.Control.Locate.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.78.0/dist/L.Control.Locate.min.js"
-            charset="utf-8"></script>
 </head>
 <body>
 
-<nav>
-    <div class="nav-wrapper">
-        <a href="/events" class="brand-logo">FindFun</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <th:block th:if="${session.user == null}" >
-                <li><a href="/login">Log In</a></li>
-                <li><a href="/signup">Sign Up</a></li>
-            </th:block>
-            <th:block th:if="${session.user != null}" >
-                <li><a href="#" th:text="${session.user.getUsername()}"></a></li>
-                <li><a href="/logout">Log Out</a></li>
-            </th:block>
-        </ul>
-    </div>
-</nav>
+<nav th:replace="fragments/header"></nav>
 
 <div class="container">
 
@@ -115,9 +65,7 @@
     </div>
 </div>
 
-<footer class="footer">
-    <p class="footer-text">Footer</p>
-</footer>
+<footer th:replace="fragments/footer"></footer>
 
 </body>
 </html>

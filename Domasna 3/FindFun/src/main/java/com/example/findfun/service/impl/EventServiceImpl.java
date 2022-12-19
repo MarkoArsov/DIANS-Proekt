@@ -1,10 +1,12 @@
 package com.example.findfun.service.impl;
 
 import com.example.findfun.model.Event;
+import com.example.findfun.model.User;
 import com.example.findfun.repository.EventRepository;
 import com.example.findfun.service.EventService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +27,20 @@ public class EventServiceImpl implements EventService {
     @Override
     public Optional<Event> findById(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public Optional<Event> save(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category) {
+        if (repository.findByName(name).isPresent()){
+            return repository.findByName(name);
+        }
+        Event event = new Event(name, about, imgPath, lat, lng, date, createdUser, category);
+        return Optional.of(repository.save(event));
+    }
+
+
+    @Override
+    public List<Event> searchEvents(String text) {
+        return repository.findAllByNameContainingOrAboutContaining(text, text);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +28,8 @@ public class Event {
 
     private Double lng;
 
+    private String category;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime date;
 
@@ -41,6 +44,20 @@ public class Event {
 
     @OneToMany(mappedBy = "event")
     private List<Comment> comments;
+
+    public Event(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category) {
+        this.name = name;
+        this.about = about;
+        this.imgPath = imgPath;
+        this.lat = lat;
+        this.lng = lng;
+        this.date = date;
+        this.category = category;
+        this.createdUser = createdUser;
+        this.invitedUsers = new ArrayList<>();
+        this.interestedUsers = new ArrayList<>();
+        this.comments = new ArrayList<>();
+    }
 
     public Event(String name, String about, String imgPath, Double lat, Double lng) {
         this.name = name;
