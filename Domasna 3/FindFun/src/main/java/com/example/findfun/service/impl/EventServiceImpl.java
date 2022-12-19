@@ -43,4 +43,9 @@ public class EventServiceImpl implements EventService {
     public List<Event> searchEvents(String text) {
         return repository.findAllByNameContainingOrAboutContaining(text, text);
     }
+
+    @Override
+    public List<Event> findAllByName(String name) {
+        return repository.findAllByName(name);
+    }
 }

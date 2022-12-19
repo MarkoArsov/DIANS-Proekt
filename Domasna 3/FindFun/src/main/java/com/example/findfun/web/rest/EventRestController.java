@@ -30,8 +30,8 @@ public class EventRestController {
         return restEvents;
     }
 
-    @GetMapping("/search")
-    public List<RestEvent> search(@RequestParam String text){
+    @GetMapping("/search/{text}")
+    public List<RestEvent> search(@PathVariable String text){
         if (text==null || text.isEmpty()){
             findAll();
         }

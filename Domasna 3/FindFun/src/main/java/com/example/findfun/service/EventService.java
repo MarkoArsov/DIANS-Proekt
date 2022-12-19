@@ -16,4 +16,6 @@ public interface EventService {
     Optional<Event> save(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category);
 
     List<Event> searchEvents(String text);
+
+    List<Event> findAllByName(String name);
 }

@@ -12,7 +12,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomAuthenticationProvider provider;
 
-
     public WebSecurityConfig(CustomAuthenticationProvider provider) {
         this.provider = provider;
     }
@@ -24,9 +23,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        String[] staticResources = {
+                "/css/**",
+                "/img/**",
+                "/js/**",};
+
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/events", "/assets/**", "/signup", "/api/**").permitAll()
+                .antMatchers("/resource/**").permitAll()
+                .antMatchers(staticResources).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

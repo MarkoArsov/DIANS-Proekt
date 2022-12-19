@@ -1,6 +1,8 @@
+
 $(document).ready(function () {
 
     var fetchEventLink = 'http://localhost:8085/api/events/' + eventId;
+
     fetch(fetchEventLink).then(r => r.json()).then(data => {
 
         var eventId = data.id;

@@ -29,19 +29,20 @@ public class EventController {
     @GetMapping
     public String allEvents(Model model, Authentication authentication, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        if (authentication != null && user == null){
+        if (authentication != null && user == null) {
             String username = authentication.getName();
             user = userService.findByUsername(username);
             request.getSession().setAttribute("user", user);
         }
+        model.addAttribute("searchText", "");
         return "home";
     }
 
     @GetMapping("/{id}")
-    public String eventById(@PathVariable Long id, Model model){
+    public String eventById(@PathVariable Long id, Model model) {
 
         Event event = null;
-        if (service.findById(id).isPresent()){
+        if (service.findById(id).isPresent()) {
             event = service.findById(id).get();
         }
         model.addAttribute("event", event);
@@ -50,7 +51,7 @@ public class EventController {
     }
 
     @GetMapping("/add")
-    public String addEventPage(){
+    public String addEventPage() {
         return "createEvent";
     }
 
@@ -62,12 +63,18 @@ public class EventController {
                            @RequestParam String category,
                            @RequestParam String imgPath,
                            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date,
-                           HttpServletRequest request){
+                           HttpServletRequest request) {
 
         User user = (User) request.getSession().getAttribute("user");
 
         service.save(name, about, imgPath, lat, lng, date, user, category);
 
         return "redirect:/events";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam String text, Model model) {
+        model.addAttribute("searchText", text);
+        return "home";
     }
 }

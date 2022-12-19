@@ -1,4 +1,13 @@
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 $(document).ready(function () {
+
+    var searchText = document.querySelector("#search-text").value
 
     var map = L.map('main-map').setView([41.9981, 21.4254], 14);
 
@@ -11,13 +20,19 @@ $(document).ready(function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    var url = 'http://localhost:8085/api/events/search/' + searchText
 
-    fetch('http://localhost:8085/api/events').then(r => r.json()).then(data => {
+    if (searchText === "" || searchText === null){
+        url = 'http://localhost:8085/api/events'
+    }
 
-        var mainEvents = document.querySelector("#main-events")
+    fetch(url).then(r => r.json()).then(data => {
+
+        var mainEvents = document.querySelector("#list-events")
+
+        removeAllChildNodes(mainEvents)
 
         for (let i = 0; i < data.length; i++) {
-
             var eventId = data[i].id;
             var eventName = data[i].name;
             var eventImg = data[i].imgPath;
@@ -44,9 +59,7 @@ $(document).ready(function () {
             />, eventMarkerContent)
 
         }
-
     })
-
 
     $('form').each(function () {
         $('input').keypress(function (e) {
@@ -60,3 +73,4 @@ $(document).ready(function () {
     })
 
 })
+

@@ -29,11 +29,16 @@
         <div class="col s12 l5" id="main-events">
 
             <div class="event-search">
-                <form action="test.html">
+                <form id="search-form" action="/events/search" method="post">
                     <div class="input-field">
-                        <input placeholder="Search Events" id="search-input" type="text" class="validate">
+                        <input placeholder="Search Events" id="search-input" type="text" name="text" class="validate">
                     </div>
+                    <input type="hidden" id="search-text" th:value="${searchText}">
                 </form>
+            </div>
+
+            <div id="list-events">
+
             </div>
 
         </div>
