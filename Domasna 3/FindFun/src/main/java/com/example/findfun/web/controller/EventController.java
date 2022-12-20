@@ -50,7 +50,7 @@ public class EventController {
         }
         model.addAttribute("event", event);
         model.addAttribute("eventId", event.getId());
-        model.addAttribute("eventdate",event.getDate());
+        model.addAttribute("eventDate",event.getDate());
         model.addAttribute("comments",event.getComments());
         return "event";
     }
@@ -92,4 +92,6 @@ public class EventController {
         commentService.save(comment,user,event);
         return "redirect:/events/"+eventID.toString();
     }
+
+
 }

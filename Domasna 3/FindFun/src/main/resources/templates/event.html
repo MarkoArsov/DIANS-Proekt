@@ -39,16 +39,18 @@
 
     <div class="row">
         <div class="col s8">
+
             <div id="title">
                 <h1 th:text="${event.getName()}"></h1>
             </div>
+
             <div>
-                <h3 th:text="${event.getCreatedUser().getUsername()}"></h3>
+                <h5>Created by <span th:text="${event.getCreatedUser().getUsername()}"></span></h5>
+                <h5>When: <span th:text="${#temporals.format(eventDate, 'dd.MM.yyyy HH:mm')}"></span></h5>
             </div>
-            <div>
-                <h3 th:text="${eventdate}"></h3>
-            </div>
-            <a href="#" class="button" name="button" id="buttonForComments" >Interested</a>
+
+            <a href="#" class="button" name="button" id="buttonForComments">Interested</a>
+
         </div>
         <div class="col s4" id="smallMap">
             SMALL MAP
@@ -67,25 +69,28 @@
             <h2>Comments</h2>
             <form action="/events/comment" method="post">
                 <input type="hidden" th:value="${event.getId()}" name="eventID">
-                <input th:type="text" id="areaForComments" name="comment" class="input-field" placeholder="Write a comment...">
+                <div class="input-field">
+                    <input th:type="text" id="areaForComments" name="comment" placeholder="Write a comment...">
+                </div>
+
             </form>
             <div th:each="comment : ${comments}">
-                <p th:text="${comment.getUser().getUsername()} + ' ' + ${comment.getDateCreated()}" id="username&Date"></p>
+                <p th:text="${comment.getUser().getUsername()} + ' ' + ${comment.getDateCreated()}"
+                   id="username&Date"></p>
                 <p th:text="${comment.getContent()}" id="commentContent"></p>
             </div>
-<!--            <a href="#" class="button" name="button" id="buttonForComments">Comment</a>-->
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12" id="contact">
+
+        <div class="row">
+            <div class="col s12" id="contact">
             <span>
             <h2 th:text="'Contact: ' + ${event.getCreatedUser().getEmail()}"></h2>
             </span>
+            </div>
         </div>
     </div>
-</div>
 
-<footer th:replace="fragments/footer"></footer>
+    <footer th:replace="fragments/footer"></footer>
 
 </body>
 </html>

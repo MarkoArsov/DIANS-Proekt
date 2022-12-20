@@ -42,10 +42,17 @@ body{
     color: white;
     font-size: 30px;
 }
+
 .input-field textarea:focus{
     border-bottom: 1px solid orange !important;
     box-shadow: 0 1px 0 0 #000 !important;
 }
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid orange !important;
+    box-shadow: 0 1px 0 0 #000 !important;
+}
+
 .button {
     background-color: #F5853F;
     border: none;
@@ -58,17 +65,20 @@ body{
     margin: 15px 2px;
     cursor: pointer;
 }
+
 #contact{
     text-align: center;
     display: inline-block;
     font-size: 30px;
 }
+
 #username\&Date{
     text-align: center;
     color: #F5853F;
     display: inline-block;
     font-size: 20px;
 }
+
 #commentContent{
     font-size: 18px;
 
