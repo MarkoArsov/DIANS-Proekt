@@ -42,7 +42,7 @@ public class Event {
     @ManyToMany
     private List<User> interestedUsers;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event",fetch =FetchType.EAGER)
     private List<Comment> comments;
 
     public Event(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category) {

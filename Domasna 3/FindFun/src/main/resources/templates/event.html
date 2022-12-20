@@ -30,7 +30,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col s12" id="imgDiv" th:style="'background-image:url(' + @{${event.getImgPath}} + ');
+        <div class="col s12" id="imgDiv" th:style="'background-image:url(' + @{${event.getImgPath()}} + ');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;'">
@@ -43,8 +43,12 @@
                 <h1 th:text="${event.getName()}"></h1>
             </div>
             <div>
-                <p></p>
+                <h3 th:text="${event.getCreatedUser().getUsername()}"></h3>
             </div>
+            <div>
+                <h3 th:text="${eventdate}"></h3>
+            </div>
+            <a href="#" class="button" name="button" id="buttonForComments" >Interested</a>
         </div>
         <div class="col s4" id="smallMap">
             SMALL MAP
@@ -61,6 +65,22 @@
     <div class="row">
         <div class="col s12" id="comments">
             <h2>Comments</h2>
+            <form action="/events/comment" method="post">
+                <input type="hidden" th:value="${event.getId()}" name="eventID">
+                <input th:type="text" id="areaForComments" name="comment" class="input-field" placeholder="Write a comment...">
+            </form>
+            <div th:each="comment : ${comments}">
+                <p th:text="${comment.getUser().getUsername()} + ' ' + ${comment.getDateCreated()}" id="username&Date"></p>
+                <p th:text="${comment.getContent()}" id="commentContent"></p>
+            </div>
+<!--            <a href="#" class="button" name="button" id="buttonForComments">Comment</a>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12" id="contact">
+            <span>
+            <h2 th:text="'Contact: ' + ${event.getCreatedUser().getEmail()}"></h2>
+            </span>
         </div>
     </div>
 </div>

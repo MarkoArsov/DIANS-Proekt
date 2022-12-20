@@ -3,6 +3,7 @@ package com.example.findfun.web.controller;
 
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;
+import com.example.findfun.service.CommentService;
 import com.example.findfun.service.EventService;
 import com.example.findfun.service.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,10 +21,12 @@ public class EventController {
 
     private final EventService service;
     private final UserService userService;
+    private final CommentService commentService;
 
-    public EventController(EventService service, UserService userService) {
+    public EventController(EventService service, UserService userService, CommentService commentService) {
         this.service = service;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     @GetMapping
@@ -47,6 +50,8 @@ public class EventController {
         }
         model.addAttribute("event", event);
         model.addAttribute("eventId", event.getId());
+        model.addAttribute("eventdate",event.getDate());
+        model.addAttribute("comments",event.getComments());
         return "event";
     }
 
@@ -76,5 +81,15 @@ public class EventController {
     public String search(@RequestParam String text, Model model) {
         model.addAttribute("searchText", text);
         return "home";
+    }
+    @PostMapping("/comment")
+    public String addComment(@RequestParam String comment,
+                             @RequestParam Long eventID,
+                             HttpServletRequest request){
+
+        User user = (User) request.getSession().getAttribute("user");
+        Event event=service.findById(eventID).get();
+        commentService.save(comment,user,event);
+        return "redirect:/events/"+eventID.toString();
     }
 }
