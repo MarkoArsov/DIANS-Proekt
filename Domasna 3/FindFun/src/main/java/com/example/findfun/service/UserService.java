@@ -10,4 +10,6 @@ public interface UserService extends UserDetailsService {
     User findByUsername(String username);
 
     User findByUsernameAndPassword(String username, String password);
+
+    User update(User user);
 }

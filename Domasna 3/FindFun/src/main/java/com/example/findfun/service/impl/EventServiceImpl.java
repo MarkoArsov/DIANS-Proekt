@@ -48,4 +48,24 @@ public class EventServiceImpl implements EventService {
     public List<Event> findAllByName(String name) {
         return repository.findAllByName(name);
     }
+
+    @Override
+    public void addInterestedUserToEvent(Event event, User user) {
+
+        if (event == null || user == null){
+            throw  new IllegalArgumentException();
+        }
+
+        List<User> users = event.getInterestedUsers();
+
+        for (User user1 : users) {
+            if (user1.getUsername().equals(user.getUsername())){
+                return;
+            }
+        }
+
+        event.getInterestedUsers().add(user);
+
+        repository.save(event);
+    }
 }

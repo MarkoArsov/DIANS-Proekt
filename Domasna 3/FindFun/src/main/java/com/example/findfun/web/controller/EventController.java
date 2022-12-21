@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/events")
@@ -50,8 +51,8 @@ public class EventController {
         }
         model.addAttribute("event", event);
         model.addAttribute("eventId", event.getId());
-        model.addAttribute("eventDate",event.getDate());
-        model.addAttribute("comments",event.getComments());
+        model.addAttribute("eventDate", event.getDate());
+        model.addAttribute("comments", event.getComments());
         return "event";
     }
 
@@ -82,16 +83,32 @@ public class EventController {
         model.addAttribute("searchText", text);
         return "home";
     }
+
     @PostMapping("/comment")
     public String addComment(@RequestParam String comment,
                              @RequestParam Long eventID,
-                             HttpServletRequest request){
+                             HttpServletRequest request) {
 
         User user = (User) request.getSession().getAttribute("user");
-        Event event=service.findById(eventID).get();
-        commentService.save(comment,user,event);
-        return "redirect:/events/"+eventID.toString();
+        Event event = service.findById(eventID).get();
+        commentService.save(comment, user, event);
+        return "redirect:/events/" + eventID.toString();
     }
 
+    @GetMapping("/interested/{id}")
+    public String interested(@PathVariable Long id,
+                             HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+
+        Event event = null;
+        if (service.findById(id).isPresent()) {
+            event = service.findById(id).get();
+        }
+
+        service.addInterestedUserToEvent(event, user);
+
+        return "redirect:/events/" + id.toString();
+    }
 
 }
