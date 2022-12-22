@@ -30,6 +30,22 @@ public class EventRestController {
         return restEvents;
     }
 
+    @GetMapping("/sort/recent")
+    public List<RestEvent> newest(){
+        List<RestEvent> restEvents = new ArrayList<>();
+        List<Event> events = service.sortRecent();
+        events.forEach(event -> restEvents.add(new RestEvent(event)));
+        return restEvents;
+    }
+
+    @GetMapping("/sort/popular")
+    public List<RestEvent> popular(){
+        List<RestEvent> restEvents = new ArrayList<>();
+        List<Event> events = service.sortPopular();
+        events.forEach(event -> restEvents.add(new RestEvent(event)));
+        return restEvents;
+    }
+
     @GetMapping("/search/{text}")
     public List<RestEvent> search(@PathVariable String text){
         if (text==null || text.isEmpty()){

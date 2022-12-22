@@ -1,4 +1,3 @@
-
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -8,6 +7,9 @@ function removeAllChildNodes(parent) {
 $(document).ready(function () {
 
     var searchText = document.querySelector("#search-text").value
+    var sortText = document.querySelector("#sort-text").value
+
+    console.log(sortText)
 
     var map = L.map('main-map').setView([41.9981, 21.4254], 14);
 
@@ -20,10 +22,14 @@ $(document).ready(function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var url = 'http://localhost:8085/api/events/search/' + searchText
+    var url = 'http://localhost:8085/api/events'
 
-    if (searchText === "" || searchText === null){
-        url = 'http://localhost:8085/api/events'
+    if (sortText !== null && sortText !== "" && sortText !== "all") {
+        url = 'http://localhost:8085/api/events/sort/' + sortText;
+    }
+
+    if (searchText !== null && searchText !== "") {
+        url = 'http://localhost:8085/api/events/search/' + searchText
     }
 
     fetch(url).then(r => r.json()).then(data => {
@@ -43,7 +49,7 @@ $(document).ready(function () {
             mainEvents.append(event)
 
             ReactDOM.render(<Event
-                event={{name: eventName, img: eventImg, id : eventId}}
+                event={{name: eventName, img: eventImg, id: eventId}}
             />, event)
 
             var eventLat = data[i].lat
@@ -73,4 +79,3 @@ $(document).ready(function () {
     })
 
 })
-

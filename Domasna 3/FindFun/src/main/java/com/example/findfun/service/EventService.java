@@ -22,4 +22,10 @@ public interface EventService {
     void addInterestedUserToEvent(Event event, User user);
 
     List<Event> findInvites(User user);
+
+    List<Event> sortRecent();
+
+    List<Event> sortPopular();
+
+    public List<Event> findAllOver();
 }

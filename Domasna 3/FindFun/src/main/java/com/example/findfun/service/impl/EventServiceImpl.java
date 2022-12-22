@@ -7,8 +7,10 @@ import com.example.findfun.service.EventService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -22,6 +24,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Event> findAllOver() {
+        return repository.findAll().stream().filter(Event::isOver).collect(Collectors.toList());
     }
 
     @Override
@@ -72,5 +79,17 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> findInvites(User user) {
         return null;
+    }
+
+    @Override
+    public List<Event> sortRecent() {
+        List<Event> events = repository.findAll().stream().filter(event -> !(event.getDate() == null)).toList();
+        events = events.stream().filter(Event::isNotOver).collect(Collectors.toList());
+        return events.stream().sorted(Comparator.comparing(Event::recent)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Event> sortPopular() {
+        return repository.findAll().stream().sorted(Comparator.comparing(Event::getPopularity, Comparator.reverseOrder())).collect(Collectors.toList());
     }
 }

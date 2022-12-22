@@ -100,3 +100,38 @@
     color: white;
     font-size: 30px;
 }
+
+.sort-div{
+    margin: auto;
+    width: 100%;
+}
+
+.button {
+    width: 100px;
+    background-color: #F5853F;
+    border: none;
+    color: white;
+    padding: 18px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1px 10px 1px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buttonActive{
+    width: 100px;
+    background-color: #202020;
+    border: none;
+    color: white;
+    padding: 18px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1px 10px 1px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}

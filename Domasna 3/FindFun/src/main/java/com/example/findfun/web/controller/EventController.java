@@ -40,6 +40,7 @@ public class EventController {
             request.getSession().setAttribute("user", user);
         }
         model.addAttribute("searchText", "");
+        model.addAttribute("sortText", "all");
         return "home";
     }
 
@@ -71,6 +72,12 @@ public class EventController {
         List<User> friends = user.getFriends();
 
         return "redirect:/events";
+    }
+
+    @GetMapping("/sort/{sortText}")
+    public String sort(@PathVariable String sortText, Model model){
+        model.addAttribute("sortText", sortText);
+        return "home";
     }
 
     @PostMapping("/add")

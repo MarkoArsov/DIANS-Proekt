@@ -79,4 +79,18 @@ public class Event {
         if (date == null) return false;
         return date.isBefore(LocalDateTime.now());
     }
+
+    public boolean isNotOver(){
+        return !this.isOver();
+    }
+
+    public int getPopularity(){
+        if (this.getInterestedUsers() == null) return 0;
+        return this.getInterestedUsers().size();
+    }
+
+    public int recent(){
+        return LocalDateTime.now().compareTo(date);
+    }
+
 }
