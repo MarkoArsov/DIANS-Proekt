@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -75,7 +76,9 @@ public class EventController {
 
         service.save(name, about, imgPath, lat, lng, date, user, category);
 
-        return "redirect:/events";
+        Long id = service.findAllByName(name).get(0).getId();
+
+        return "redirect:/events/invite/" + id;
     }
 
     @PostMapping("/search")

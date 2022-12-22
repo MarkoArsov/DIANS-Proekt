@@ -68,4 +68,9 @@ public class EventServiceImpl implements EventService {
 
         repository.save(event);
     }
+
+    @Override
+    public List<Event> findInvites(User user) {
+        return null;
+    }
 }

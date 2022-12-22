@@ -20,4 +20,6 @@ public interface EventService {
     List<Event> findAllByName(String name);
 
     void addInterestedUserToEvent(Event event, User user);
+
+    List<Event> findInvites(User user);
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -69,4 +70,24 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
+
+
+    public double getRating(){
+        List<Event> events = new ArrayList<>();
+        for (Event interestedEvent : interestedEvents) {
+            if (interestedEvent.isOver()){
+                events.add(interestedEvent);
+            }
+        }
+        double ratingSum = 0.0;
+        int count = 0;
+        for (Event event : events) {
+            if (event.getRating()!=null){
+                ratingSum+=event.getRating();
+                count++;
+            }
+        }
+        return ratingSum/count;
+    }
+
 }

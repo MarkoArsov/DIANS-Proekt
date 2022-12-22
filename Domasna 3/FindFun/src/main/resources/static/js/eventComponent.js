@@ -3,9 +3,10 @@ function Event({event}) {
     var eventlink = "/events/" + event.id;
 
     return (
+
         <div className="card horizontal">
             <div className="card-image">
-                <img src={event.img} alt={event.img}/>
+                <img src={event.img}/>
             </div>
             <div className="card-stacked">
                 <div className="card-content">
@@ -15,7 +16,6 @@ function Event({event}) {
                     <a href={eventlink}> Go to Event</a>
                 </div>
             </div>
-
         </div>
 
     );

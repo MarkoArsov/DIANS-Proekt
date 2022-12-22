@@ -32,6 +32,8 @@ public class Event {
 
     private String category;
 
+    private Long rating;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime date;
 
