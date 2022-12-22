@@ -62,6 +62,17 @@ public class EventController {
         return "createEvent";
     }
 
+    @GetMapping("/invite/{id}")
+    public String invitePage(@PathVariable Long id, HttpServletRequest request){
+
+        Event event = service.findById(id).get();
+
+        User user = (User) request.getSession().getAttribute("user");
+        List<User> friends = user.getFriends();
+
+        return "redirect:/events";
+    }
+
     @PostMapping("/add")
     public String addEvent(@RequestParam Double lat,
                            @RequestParam Double lng,

@@ -35,14 +35,3 @@ function MarkerEvent({event}) {
     )
 }
 
-function EventPageImg({event}){
-
-    var inlineStyle = "background-image:url(" + event.img + "); background-position: center; background-repeat: no-repeat; background-size: cover;"
-
-    return(
-        <div className="row">
-            <div className="col s12" id="imgDiv" style={inlineStyle}>
-            </div>
-        </div>
-    )
-}

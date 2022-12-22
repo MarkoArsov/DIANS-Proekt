@@ -13,7 +13,7 @@
     vertical-align: top;
 }
 
-#title{
+#title {
     text-align: center;
 }
 
@@ -24,26 +24,26 @@
     height: 89vh;
 }
 
-.input-field{
+.input-field {
     margin-top: 50px;
 }
 
-.input-field textarea{
+.input-field textarea {
     border-bottom: 1px solid white !important;
     box-shadow: 0 1px 0 0 #000 !important;
 }
 
-.input-field input[type=text]{
+.input-field input[type=text] {
     border-bottom: 1px solid white !important;
     box-shadow: 0 1px 0 0 #000 !important;
 }
 
-.input-field input[type=datetime-local]{
+.input-field input[type=datetime-local] {
     border-bottom: 1px solid white !important;
     box-shadow: 0 1px 0 0 #000 !important;
 }
 
-.input-field textarea:focus{
+.input-field textarea:focus {
     border-bottom: 1px solid orange !important;
     box-shadow: 0 1px 0 0 #000 !important;
 }
@@ -86,4 +86,18 @@
         height: 88vh;
         vertical-align: top;
     }
+}
+
+.addEventButton {
+    background-color: #F5853F;
+    border: none;
+    color: white;
+    padding: 20px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 30px auto auto;
+    cursor: pointer;
+    border-radius: 5px;
 }

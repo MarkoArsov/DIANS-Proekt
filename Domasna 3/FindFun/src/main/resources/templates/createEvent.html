@@ -38,37 +38,37 @@
                 <h1>Add New Event</h1>
             </div>
 
-            <form method="POST" action="#">
+            <form method="POST" action="/events/add" id="addEventForm">
 
-                <input type="hidden" name="lat" id="lat">
-                <input type="hidden" name="lng" id="lng">
+                <input type="hidden" required name="lat" id="lat">
+                <input type="hidden" required name="lng" id="lng">
 
                 <div class="input-field">
-                    <input type="text" name="name" placeholder="Event Name">
+                    <input type="text" required name="name" placeholder="Event Name" id="name">
                 </div>
 
                 <div class="input-field">
-                    <textarea name="about" placeholder="Event Description"></textarea>
-<!--                    <input type="text" name="about" placeholder="Event Description">-->
+                    <textarea name="about" required placeholder="Event Description" id="desc"></textarea>
                 </div>
 
                 <div class="input-field">
-                    <input type="text" name="category" placeholder="Category">
+                    <input type="text" required name="category" placeholder="Category" id="cat">
                 </div>
 
                 <div class="input-field">
-                    <input type="text" name="imgPath" placeholder="Image Url">
+                    <input type="text" required name="imgPath" placeholder="Image Url" id="img">
                 </div>
 
                 <div class="input-field">
-                    <input type="datetime-local" name="date"/>
+                    <input type="datetime-local" required name="date" id="date"/>
                 </div>
 
-                <div class="input-field">
-                    <input type="submit" value="Submit">
-                </div>
+                <button class="addEventButton" onclick="submitForm()">
+                    SAVE
+                </button>
 
             </form>
+
         </div>
 
 

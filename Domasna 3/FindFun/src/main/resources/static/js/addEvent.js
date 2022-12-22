@@ -15,6 +15,10 @@ $(document).ready(function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    var options = { timeout: 999999 }
+    var box = L.control.messagebox(options).addTo(map);
+    box.show( 'Click to select location on map' );
+
     function onMapClick(e) {
         console.log(document.querySelector("#lat").value)
         if (mainMarker !== null){
@@ -34,12 +38,27 @@ $(document).ready(function () {
         $('input').keypress(function (e) {
             // Enter pressed?
             if (e.which == 10 || e.which == 13) {
-                this.form.submit();
+                checkFields()
+               // this.form.submit();
             }
         });
 
         $('input[type=submit]').hide();
     })
 
-    console.log("END")
 })
+
+function submitForm(){
+    var form = document.querySelector("#addEventForm");
+    form.submit();
+}
+
+function checkFields(){
+
+    const inputFeilds = document.querySelectorAll("input");
+
+    const validInputs = Array.from(inputFeilds).filter( input => input.value !== "");
+
+    return validInputs.length !== 0;
+
+}
