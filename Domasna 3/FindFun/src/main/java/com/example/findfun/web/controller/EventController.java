@@ -78,6 +78,10 @@ public class EventController {
         return "redirect:/events";
     }
 
+    public String invite(){
+        return "";
+    }
+
     @PostMapping("/search")
     public String search(@RequestParam String text, Model model) {
         model.addAttribute("searchText", text);
