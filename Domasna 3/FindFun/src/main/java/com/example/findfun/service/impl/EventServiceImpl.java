@@ -2,7 +2,7 @@ package com.example.findfun.service.impl;
 
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;
-import com.example.findfun.repository.EventRepository;
+import com.example.findfun.service.repository.EventRepository;
 import com.example.findfun.service.EventService;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +73,15 @@ public class EventServiceImpl implements EventService {
 
         event.getInterestedUsers().add(user);
 
+        repository.save(event);
+    }
+
+    @Override
+    public void addInvitedUserToEvent(Event event, User user) {
+        if (event == null || user == null){
+            throw  new IllegalArgumentException();
+        }
+        event.getInvitedUsers().add(user);
         repository.save(event);
     }
 

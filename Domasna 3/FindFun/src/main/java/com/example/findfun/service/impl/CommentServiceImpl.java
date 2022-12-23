@@ -3,12 +3,10 @@ package com.example.findfun.service.impl;
 import com.example.findfun.model.Comment;
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;
-import com.example.findfun.repository.CommentRepository;
-import com.example.findfun.repository.EventRepository;
+import com.example.findfun.service.repository.CommentRepository;
 import com.example.findfun.service.CommentService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

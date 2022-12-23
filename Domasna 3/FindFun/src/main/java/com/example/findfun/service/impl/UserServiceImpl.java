@@ -2,7 +2,7 @@ package com.example.findfun.service.impl;
 
 import com.example.findfun.model.Role;
 import com.example.findfun.model.User;
-import com.example.findfun.repository.UserRepository;
+import com.example.findfun.service.repository.UserRepository;
 import com.example.findfun.service.UserService;
 
 import org.springframework.security.core.userdetails.UserDetails;

@@ -64,14 +64,37 @@ public class EventController {
     }
 
     @GetMapping("/invite/{id}")
-    public String invitePage(@PathVariable Long id, HttpServletRequest request){
+    public String invitePage(@PathVariable Long id, HttpServletRequest request, Model model){
 
         Event event = service.findById(id).get();
 
         User user = (User) request.getSession().getAttribute("user");
         List<User> friends = user.getFriends();
+        List<User> invitedFriends = event.getInvitedUsers();
 
-        return "redirect:/events";
+
+        for(int i = 0; i < friends.size(); i++){
+            for (User invitedFriend : invitedFriends) {
+                if(friends.get(i).getUsername().equals(invitedFriend.getUsername())){
+                    friends.remove(i);
+                    i--;
+                }
+            }
+        }
+        model.addAttribute("notInvitedFriends", friends);
+        model.addAttribute("invitedFriends", invitedFriends);
+        model.addAttribute("eventId",id);
+
+        return "invite";
+    }
+    @PostMapping("/add_friend")
+    public String addFriend(@RequestParam Long id,
+                            @RequestParam String friendUsername,HttpServletRequest request){
+        Event event = service.findById(id).get();
+        User friend = userService.findByUsername(friendUsername);
+        service.addInvitedUserToEvent(event, friend);
+
+        return "redirect:/events/invite/" + id;
     }
 
     @GetMapping("/sort/{sortText}")

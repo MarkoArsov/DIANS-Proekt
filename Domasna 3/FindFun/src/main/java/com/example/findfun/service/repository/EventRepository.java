@@ -1,4 +1,4 @@
-package com.example.findfun.repository;
+package com.example.findfun.service.repository;
 
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;

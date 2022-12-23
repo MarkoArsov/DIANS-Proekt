@@ -1,4 +1,4 @@
-package com.example.findfun.repository;
+package com.example.findfun.service.repository;
 
 import com.example.findfun.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
