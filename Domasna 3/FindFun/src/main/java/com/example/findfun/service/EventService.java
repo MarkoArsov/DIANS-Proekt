@@ -27,6 +27,7 @@ public interface EventService {
     List<Event> sortRecent();
 
     List<Event> sortPopular();
+    void rateEvent(Event event, Long rating);
 
     public List<Event> findAllOver();
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/events")
@@ -79,6 +80,7 @@ public class EventController {
                 if(friends.get(i).getUsername().equals(invitedFriend.getUsername())){
                     friends.remove(i);
                     i--;
+                    break;
                 }
             }
         }
@@ -158,6 +160,35 @@ public class EventController {
         request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
 
         return "redirect:/events/" + id.toString();
+    }
+
+    @GetMapping("/rating")
+    public String ratingPage(HttpServletRequest request, Model model){
+        User user = (User) request.getSession().getAttribute("user");
+        request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
+        List<Event> interestedEvents = user.getInterestedEvents();
+        List<Event> rateEvents = new ArrayList<>();
+        for (Event interestedEvent : interestedEvents) {
+            if(interestedEvent.getDate().isBefore(LocalDateTime.now())){
+                rateEvents.add(interestedEvent);
+            }
+        }
+        model.addAttribute("events", rateEvents);
+        return"rating";
+    }
+    @PostMapping("/rated")
+    public String ratedEvent(@RequestParam String rate, @RequestParam Long id, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        Long RATE = Long.parseLong(rate);
+        Event event = service.findById(id).get();
+        service.rateEvent(event, RATE);
+        request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
+
+        return "redirect:/events/rating";
+    }
+    @GetMapping("/invitations")
+    public String invitation(){
+        return "invitations";
     }
 
 }

@@ -101,4 +101,11 @@ public class EventServiceImpl implements EventService {
     public List<Event> sortPopular() {
         return repository.findAll().stream().sorted(Comparator.comparing(Event::getPopularity, Comparator.reverseOrder())).collect(Collectors.toList());
     }
+
+    @Override
+    public void rateEvent(Event event, Long rating) {
+        event.setRating(rating);
+        repository.save(event);
+    }
+
 }
