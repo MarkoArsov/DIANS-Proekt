@@ -38,6 +38,7 @@ public class EventController {
             String username = authentication.getName();
             user = userService.findByUsername(username);
             request.getSession().setAttribute("user", user);
+            System.out.println("==============================================================="+user.getCreatedEvents().size()+"===============================================================");
         }
         model.addAttribute("searchText", "");
         model.addAttribute("sortText", "all");
@@ -117,6 +118,8 @@ public class EventController {
 
         service.save(name, about, imgPath, lat, lng, date, user, category);
 
+        request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
+
         Long id = service.findAllByName(name).get(0).getId();
 
         return "redirect:/events/invite/" + id;
@@ -151,6 +154,8 @@ public class EventController {
         }
 
         service.addInterestedUserToEvent(event, user);
+
+        request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
 
         return "redirect:/events/" + id.toString();
     }

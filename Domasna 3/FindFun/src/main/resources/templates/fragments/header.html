@@ -10,7 +10,7 @@
             <th:block th:if="${session.user != null}" >
                 <li><a href="/events/add">Add New Event</a></li>
                 <li><a href="#" th:text="${session.user.getUsername()}"></a></li>
-                <li><a href="#">Invites</a></li>
+                <li><a href="#">Invitations</a></li>
                 <li><a href="#">Ratings</a></li>
                 <li><a href="/logout">Log Out</a></li>
             </th:block>
