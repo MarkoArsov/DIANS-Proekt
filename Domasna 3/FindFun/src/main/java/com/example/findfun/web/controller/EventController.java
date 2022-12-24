@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/events")
@@ -76,5 +77,14 @@ public class EventController {
     public String search(@RequestParam String text, Model model) {
         model.addAttribute("searchText", text);
         return "home";
+    }
+
+    @GetMapping("/myEvents")
+    public String myEvents(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        List<Event> events = service.findAllByCreatedUser(user);
+        model.addAttribute("user",user);
+        model.addAttribute("events", events);
+        return "myEvents";
     }
 }

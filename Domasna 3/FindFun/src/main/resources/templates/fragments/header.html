@@ -9,7 +9,7 @@
             </th:block>
             <th:block th:if="${session.user != null}" >
                 <li><a href="/events/add">Add New Event</a></li>
-                <li><a href="#" th:text="${session.user.getUsername()}"></a></li>
+                <li><a href="/user" th:text="${session.user.getUsername()}"></a></li>
                 <li><a href="/logout">Log Out</a></li>
             </th:block>
         </ul>

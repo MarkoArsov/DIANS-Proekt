@@ -18,4 +18,6 @@ public interface EventService {
     List<Event> searchEvents(String text);
 
     List<Event> findAllByName(String name);
+
+    List<Event> findAllByCreatedUser(User user);
 }

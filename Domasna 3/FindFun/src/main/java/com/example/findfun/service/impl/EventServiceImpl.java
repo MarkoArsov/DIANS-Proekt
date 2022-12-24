@@ -48,4 +48,9 @@ public class EventServiceImpl implements EventService {
     public List<Event> findAllByName(String name) {
         return repository.findAllByName(name);
     }
+
+    @Override
+    public List<Event> findAllByCreatedUser(User user){
+        return repository.findAllByCreatedUser(user);
+    }
 }
