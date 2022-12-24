@@ -1,6 +1,7 @@
-body{
+body {
     color: white;
 }
+
 #imgDiv {
     margin: 40px auto auto;
     border-radius: 30px;
@@ -43,7 +44,7 @@ body{
     font-size: 30px;
 }
 
-.input-field textarea:focus{
+.input-field textarea:focus {
     border-bottom: 1px solid orange !important;
     box-shadow: 0 1px 0 0 #000 !important;
 }
@@ -54,35 +55,74 @@ body{
 }
 
 .button {
+    width: 150px;
     background-color: #F5853F;
     border: none;
     color: white;
-    padding: 20px 32px;
+    padding: 18px 26px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 15px 2px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-#contact{
+.active {
+    width: 150px;
+    background-color: #202020;
+    border: none;
+    color: white;
+    padding: 18px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#contact {
     text-align: center;
     display: inline-block;
     font-size: 30px;
 }
 
-#username\&Date{
+#username\&Date {
     text-align: center;
-    color: #F5853F;
     display: inline-block;
-    font-size: 20px;
 }
 
-#commentContent{
+
+#commentContent {
     font-size: 18px;
 
 }
 
+.commentIcon {
+    font-size: 10px;
+}
 
+.commentUsername {
+    font-size: 30px;
+    margin-right: 5px;
+}
+
+.commentDate {
+    font-size: 25px;
+    margin-left: 5px;
+}
+
+.comments {
+    background-color: #202020;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.commentSeparator{
+    border: 1px solid #121212;
+    border-radius: 1px;
+}
 

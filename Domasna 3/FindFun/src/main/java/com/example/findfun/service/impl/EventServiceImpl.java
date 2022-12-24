@@ -94,7 +94,7 @@ public class EventServiceImpl implements EventService {
     public List<Event> sortRecent() {
         List<Event> events = repository.findAll().stream().filter(event -> !(event.getDate() == null)).toList();
         events = events.stream().filter(Event::isNotOver).collect(Collectors.toList());
-        return events.stream().sorted(Comparator.comparing(Event::recent)).collect(Collectors.toList());
+        return events.stream().sorted(Comparator.comparing(Event::recent, Comparator.reverseOrder())).collect(Collectors.toList());
     }
 
     @Override

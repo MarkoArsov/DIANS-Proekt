@@ -45,11 +45,17 @@
             </div>
 
             <div>
+                <h5><span th:text="${#temporals.format(eventDate, 'EEE, d MMM yyyy hh:mm')}"></span></h5>
                 <h5>Hosted by <span th:text="${event.getCreatedUser().getUsername()}"></span></h5>
-                <h5>When: <span th:text="${#temporals.format(eventDate, 'dd.MM.yyyy HH:mm')}"></span></h5>
+                <h5><span th:text="${event.getInterestedUsers().size()}"></span> interested</h5>
             </div>
 
-            <a th:href="@{|/events/interested/${event.getId()}|}" class="button" name="button" id="buttonForComments">Interested</a>
+            <a th:if="${interested == false}" th:href="@{|/events/interested/${event.getId()}|}" class="button"
+               name="button" id="buttonForComments">Interested</a>
+
+            <a th:if="${interested == true}" th:href="@{|/events/interested/${event.getId()}|}" class="active"
+               name="button" id="buttonForComments">Interested</a>
+
 
         </div>
         <div class="col s4" id="smallMap">
@@ -66,18 +72,26 @@
 
     <div class="row">
         <div class="col s12" id="comments">
-            <h2>Comments</h2>
+            <h2>Discussion</h2>
             <form action="/events/comment" method="post">
                 <input type="hidden" th:value="${event.getId()}" name="eventID">
                 <div class="input-field">
                     <input th:type="text" id="areaForComments" name="comment" placeholder="Write a comment...">
                 </div>
-
             </form>
-            <div th:each="comment : ${comments}">
-                <p th:text="${comment.getUser().getUsername()} + ' ' + ${comment.getDateCreated()}"
-                   id="username&Date"></p>
-                <p th:text="${comment.getContent()}" id="commentContent"></p>
+
+            <div class="comments">
+                <div th:each="comment : ${comments}">
+                    <p id="username&Date"><span class="commentUsername"
+                                                th:text="${comment.getUser().getUsername()}"></span> <i
+                            class="material-icons commentIcon">brightness_1</i> <span class="commentDate"
+                                                                                      th:text="${comment.printDate()}"></span>
+                    </p>
+                    <p th:text="${comment.getContent()}" id="commentContent"></p>
+                    <br>
+                    <hr class="commentSeparator">
+                    <br>
+                </div>
             </div>
         </div>
 

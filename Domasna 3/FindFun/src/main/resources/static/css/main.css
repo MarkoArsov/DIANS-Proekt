@@ -135,3 +135,7 @@
     cursor: pointer;
     border-radius: 5px;
 }
+
+.eventTitle{
+    font-size: 40px;
+}

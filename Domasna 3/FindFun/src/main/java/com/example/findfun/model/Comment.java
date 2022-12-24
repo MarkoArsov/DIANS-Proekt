@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -34,5 +35,10 @@ public class Comment {
 
     public Comment() {
 
+    }
+
+    public String printDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy hh:mm");
+        return dateCreated.format(formatter);
     }
 }

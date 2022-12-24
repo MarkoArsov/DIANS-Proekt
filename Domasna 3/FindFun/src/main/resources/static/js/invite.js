@@ -6,11 +6,7 @@ function removeAllChildNodes(parent) {
 
 $(document).ready(function () {
 
-    var searchText = document.querySelector("#search-text").value
-
-    var sortText = document.querySelector("#sort-text").value
-
-    console.log(sortText)
+    console.log("FWIKJNWFOIJFWI")
 
     var map = L.map('main-map').setView([41.9981, 21.4254], 14);
 
@@ -23,15 +19,7 @@ $(document).ready(function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var url = 'http://localhost:8085/api/events'
-
-    if (sortText !== null && sortText !== "" && sortText !== "all") {
-        url = 'http://localhost:8085/api/events/sort/' + sortText;
-    }
-
-    if (searchText !== null && searchText !== "") {
-        url = 'http://localhost:8085/api/events/search/' + searchText
-    }
+    var url = 'http://localhost:8085/api/events/invitations'
 
     fetch(url).then(r => r.json()).then(data => {
 
@@ -52,7 +40,7 @@ $(document).ready(function () {
             event.setAttribute("id", eventId)
             mainEvents.append(event)
 
-            ReactDOM.render(<Event
+            ReactDOM.render(<InviteEvent
                 event={{name: eventName, img: eventImg, id: eventId, created: eventCreated, date: date, interested: interested}}
             />, event)
 
@@ -69,17 +57,6 @@ $(document).ready(function () {
             />, eventMarkerContent)
 
         }
-    })
-
-    $('form').each(function () {
-        $('input').keypress(function (e) {
-            // Enter pressed?
-            if (e.which == 10 || e.which == 13) {
-                this.form.submit();
-            }
-        });
-
-        $('input[type=submit]').hide();
     })
 
 })

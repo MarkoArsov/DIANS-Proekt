@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class RestEvent {
@@ -20,7 +21,11 @@ public class RestEvent {
 
     private Double lng;
 
-    private LocalDateTime date;
+    private String date;
+
+    private String created;
+
+    private int interested;
 
     public RestEvent(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date) {
         this.name = name;
@@ -28,7 +33,7 @@ public class RestEvent {
         this.imgPath = imgPath;
         this.lat = lat;
         this.lng = lng;
-        this.date = date;
+        this.date = date.toString();
     }
 
     public RestEvent(Event event){
@@ -36,8 +41,12 @@ public class RestEvent {
         this.name = event.getName();
         this.about = event.getAbout();
         this.imgPath = event.getImgPath();
-        this.date = event.getDate();
         this.lat = event.getLat();
         this.lng = event.getLng();
+        this.created = event.getCreatedUser().getUsername();
+        this.interested = event.getInterestedUsers().size();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy hh:mm");
+        this.date = event.getDate().format(formatter);
     }
+
 }

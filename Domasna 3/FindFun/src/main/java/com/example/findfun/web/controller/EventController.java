@@ -39,7 +39,6 @@ public class EventController {
             String username = authentication.getName();
             user = userService.findByUsername(username);
             request.getSession().setAttribute("user", user);
-            System.out.println("==============================================================="+user.getCreatedEvents().size()+"===============================================================");
         }
         model.addAttribute("searchText", "");
         model.addAttribute("sortText", "all");
@@ -47,13 +46,20 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public String eventById(@PathVariable Long id, Model model) {
+    public String eventById(@PathVariable Long id, Model model, HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
 
         Event event = null;
+        boolean interested = false;
         if (service.findById(id).isPresent()) {
             event = service.findById(id).get();
+            interested = event.getInterestedUsers().contains(user);
         }
+
+        model.addAttribute("interested", interested);
         model.addAttribute("event", event);
+
         model.addAttribute("eventId", event.getId());
         model.addAttribute("eventDate", event.getDate());
         model.addAttribute("comments", event.getComments());
@@ -66,7 +72,7 @@ public class EventController {
     }
 
     @GetMapping("/invite/{id}")
-    public String invitePage(@PathVariable Long id, HttpServletRequest request, Model model){
+    public String invitePage(@PathVariable Long id, HttpServletRequest request, Model model) {
 
         Event event = service.findById(id).get();
 
@@ -75,9 +81,9 @@ public class EventController {
         List<User> invitedFriends = event.getInvitedUsers();
 
 
-        for(int i = 0; i < friends.size(); i++){
+        for (int i = 0; i < friends.size(); i++) {
             for (User invitedFriend : invitedFriends) {
-                if(friends.get(i).getUsername().equals(invitedFriend.getUsername())){
+                if (friends.get(i).getUsername().equals(invitedFriend.getUsername())) {
                     friends.remove(i);
                     i--;
                     break;
@@ -86,13 +92,14 @@ public class EventController {
         }
         model.addAttribute("notInvitedFriends", friends);
         model.addAttribute("invitedFriends", invitedFriends);
-        model.addAttribute("eventId",id);
+        model.addAttribute("eventId", id);
 
         return "invite";
     }
+
     @PostMapping("/add_friend")
     public String addFriend(@RequestParam Long id,
-                            @RequestParam String friendUsername,HttpServletRequest request){
+                            @RequestParam String friendUsername, HttpServletRequest request) {
         Event event = service.findById(id).get();
         User friend = userService.findByUsername(friendUsername);
         service.addInvitedUserToEvent(event, friend);
@@ -101,7 +108,8 @@ public class EventController {
     }
 
     @GetMapping("/sort/{sortText}")
-    public String sort(@PathVariable String sortText, Model model){
+    public String sort(@PathVariable String sortText, Model model) {
+        model.addAttribute("searchText", "");
         model.addAttribute("sortText", sortText);
         return "home";
     }
@@ -130,6 +138,7 @@ public class EventController {
     @PostMapping("/search")
     public String search(@RequestParam String text, Model model) {
         model.addAttribute("searchText", text);
+        model.addAttribute("sortText", "all");
         return "home";
     }
 
@@ -163,21 +172,22 @@ public class EventController {
     }
 
     @GetMapping("/rating")
-    public String ratingPage(HttpServletRequest request, Model model){
+    public String ratingPage(HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
         List<Event> interestedEvents = user.getInterestedEvents();
         List<Event> rateEvents = new ArrayList<>();
         for (Event interestedEvent : interestedEvents) {
-            if(interestedEvent.getDate().isBefore(LocalDateTime.now())){
+            if (interestedEvent.getDate().isBefore(LocalDateTime.now())) {
                 rateEvents.add(interestedEvent);
             }
         }
         model.addAttribute("events", rateEvents);
-        return"rating";
+        return "rating";
     }
+
     @PostMapping("/rated")
-    public String ratedEvent(@RequestParam String rate, @RequestParam Long id, HttpServletRequest request){
+    public String ratedEvent(@RequestParam String rate, @RequestParam Long id, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         Long RATE = Long.parseLong(rate);
         Event event = service.findById(id).get();
@@ -186,8 +196,9 @@ public class EventController {
 
         return "redirect:/events/rating";
     }
+
     @GetMapping("/invitations")
-    public String invitation(){
+    public String invitation() {
         return "invitations";
     }
 
