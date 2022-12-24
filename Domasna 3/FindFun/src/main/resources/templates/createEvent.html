@@ -40,27 +40,38 @@
 
             <form method="POST" action="/events/add" id="addEventForm">
 
-                <input type="hidden" required name="lat" id="lat">
-                <input type="hidden" required name="lng" id="lng">
+                <input th:if="${event == null}" type="hidden" required name="id" id="id" th:value="0">
+                <input th:if="${event == null}" type="hidden" required name="lat" id="lat">
+                <input th:if="${event == null}" type="hidden" required name="lng" id="lng">
+
+                <input th:if="${event != null}" type="hidden" required name="id" id="id" th:value="${event.getId()}">
+                <input th:if="${event != null}" type="hidden" required name="lat" id="lat" th:value="${event.getLat()}">
+                <input th:if="${event != null}" type="hidden" required name="lng" id="lng" th:value="${event.getLng()}">
+
 
                 <div class="input-field">
-                    <input type="text" required name="name" placeholder="Event Name" id="name">
+                    <input th:if="${event == null}" type="text" required name="name" placeholder="Event Name" id="name">
+                    <input th:if="${event != null}" type="text" required name="name" placeholder="Event Name" id="name" th:value="${event.getName()}">
                 </div>
 
                 <div class="input-field">
-                    <textarea name="about" required placeholder="Event Description" id="desc"></textarea>
+                    <textarea th:if="${event == null}" name="about" required placeholder="Event Description" id="desc"></textarea>
+                    <textarea th:if="${event != null}" name="about" required placeholder="Event Description" id="desc" th:text="${event.getAbout()}"></textarea>
                 </div>
 
                 <div class="input-field">
-                    <input type="text" required name="category" placeholder="Category" id="cat">
+                    <input th:if="${event == null}" type="text" required name="category" placeholder="Category" id="cat">
+                    <input th:if="${event != null}" type="text" required name="category" placeholder="Category" id="cat" th:value="${event.getCategory()}">
                 </div>
 
                 <div class="input-field">
-                    <input type="text" required name="imgPath" placeholder="Image Url" id="img">
+                    <input th:if="${event == null}" type="text" required name="imgPath" placeholder="Image Url" id="img">
+                    <input th:if="${event != null}" type="text" required name="imgPath" placeholder="Image Url" id="img" th:value="${event.getImgPath()}">
                 </div>
 
                 <div class="input-field">
-                    <input type="datetime-local" required name="date" id="date"/>
+                    <input th:if="${event == null}" type="datetime-local" required name="date" id="date"/>
+                    <input th:if="${event != null}" type="datetime-local" required name="date" id="date" th:value="${event.getDate()}" />
                 </div>
 
                 <button class="addEventButton" onclick="submitForm()">

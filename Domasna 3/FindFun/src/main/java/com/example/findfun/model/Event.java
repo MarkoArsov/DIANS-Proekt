@@ -63,6 +63,22 @@ public class Event {
         this.comments = new ArrayList<>();
     }
 
+    public Event(Long id, String name, String about, String imgPath, Double lat, Double lng, String category, Long rating, LocalDateTime date, User createdUser, List<User> invitedUsers, List<User> interestedUsers, List<Comment> comments) {
+        this.id = id;
+        this.name = name;
+        this.about = about;
+        this.imgPath = imgPath;
+        this.lat = lat;
+        this.lng = lng;
+        this.category = category;
+        this.rating = rating;
+        this.date = date;
+        this.createdUser = createdUser;
+        this.invitedUsers = invitedUsers;
+        this.interestedUsers = interestedUsers;
+        this.comments = comments;
+    }
+
     public Event(String name, String about, String imgPath, Double lat, Double lng) {
         this.name = name;
         this.about = about;

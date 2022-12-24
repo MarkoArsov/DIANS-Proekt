@@ -1,5 +1,6 @@
 package com.example.findfun.service.impl;
 
+import com.example.findfun.model.Comment;
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;
 import com.example.findfun.service.repository.EventRepository;
@@ -32,16 +33,35 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public void delete(Long id) {
+        Event event = this.findById(id).get();
+        repository.delete(event);
+    }
+
+    @Override
     public Optional<Event> findById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public Optional<Event> save(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category) {
-        if (repository.findByName(name).isPresent()){
-            return repository.findByName(name);
+    public Optional<Event> save(Long id, String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category) {
+
+        Event event = null;
+
+        if (id != 0){
+            event = repository.findById(id).get();
+            Long rating = event.getRating();
+            User user = event.getCreatedUser();
+            List<User> invited = event.getInvitedUsers();
+            List<User> interested = event.getInterestedUsers();
+            List<Comment> comments = event.getComments();
+            repository.delete(event);
+            event = new Event(id, name, about, imgPath, lat, lng, category, rating, date, user, invited, interested, comments);
         }
-        Event event = new Event(name, about, imgPath, lat, lng, date, createdUser, category);
+        else {
+            event = new Event(name, about, imgPath, lat, lng, date, createdUser, category);
+        }
+
         return Optional.of(repository.save(event));
     }
 

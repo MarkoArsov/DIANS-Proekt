@@ -66,6 +66,30 @@ public class EventController {
         return "event";
     }
 
+
+    @GetMapping("/edit/{id}")
+    public String editEventPage(@PathVariable Long id, Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        Event event = service.findById(id).get();
+        if (!user.equals(event.getCreatedUser())) {
+            return "redirect:/events";
+        }
+        model.addAttribute("event", event);
+        return "createEvent";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteEventPage(@PathVariable Long id, Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        Event event = service.findById(id).get();
+        if (!user.equals(event.getCreatedUser())) {
+            return "redirect:/events";
+        }
+        service.delete(id);
+        request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
+        return "redirect:/events";
+    }
+
     @GetMapping("/add")
     public String addEventPage() {
         return "createEvent";
@@ -73,8 +97,12 @@ public class EventController {
 
     @GetMapping("/invite/{id}")
     public String invitePage(@PathVariable Long id, HttpServletRequest request, Model model) {
-
-        Event event = service.findById(id).get();
+        Event event;
+        if (service.findById(id).isPresent()) {
+            event = service.findById(id).get();
+        } else {
+            return "redirect:/events";
+        }
 
         User user = (User) request.getSession().getAttribute("user");
         List<User> friends = user.getFriends();
@@ -115,7 +143,8 @@ public class EventController {
     }
 
     @PostMapping("/add")
-    public String addEvent(@RequestParam Double lat,
+    public String addEvent(@RequestParam Long id,
+                           @RequestParam Double lat,
                            @RequestParam Double lng,
                            @RequestParam String name,
                            @RequestParam String about,
@@ -126,11 +155,10 @@ public class EventController {
 
         User user = (User) request.getSession().getAttribute("user");
 
-        service.save(name, about, imgPath, lat, lng, date, user, category);
+        service.save(id, name, about, imgPath, lat, lng, date, user, category);
 
         request.getSession().setAttribute("user", userService.findByUsername(user.getUsername()));
-
-        Long id = service.findAllByName(name).get(0).getId();
+        if (id == 0) id = service.findAllByName(name).get(0).getId();
 
         return "redirect:/events/invite/" + id;
     }

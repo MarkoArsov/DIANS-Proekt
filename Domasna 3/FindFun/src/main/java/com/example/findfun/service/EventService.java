@@ -13,7 +13,7 @@ public interface EventService {
 
     Optional<Event> findById(Long id);
 
-    Optional<Event> save(String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category);
+    Optional<Event> save(Long id, String name, String about, String imgPath, Double lat, Double lng, LocalDateTime date, User createdUser, String category);
 
     List<Event> searchEvents(String text);
 
@@ -30,4 +30,6 @@ public interface EventService {
     void rateEvent(Event event, Long rating);
 
     public List<Event> findAllOver();
+
+    void delete(Long id);
 }
