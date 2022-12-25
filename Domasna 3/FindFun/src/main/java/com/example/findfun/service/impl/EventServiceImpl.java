@@ -3,6 +3,7 @@ package com.example.findfun.service.impl;
 import com.example.findfun.model.Comment;
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;
+import com.example.findfun.service.repository.CommentRepository;
 import com.example.findfun.service.repository.EventRepository;
 import com.example.findfun.service.EventService;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,11 @@ import java.util.stream.Collectors;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository repository;
+    private final CommentRepository commentRepository;
 
-    public EventServiceImpl(EventRepository repository) {
+    public EventServiceImpl(EventRepository repository, CommentRepository commentRepository) {
         this.repository = repository;
+        this.commentRepository = commentRepository;
     }
 
     @Override

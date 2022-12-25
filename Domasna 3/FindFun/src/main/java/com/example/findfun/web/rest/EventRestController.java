@@ -5,12 +5,10 @@ import com.example.findfun.model.Event;
 import com.example.findfun.model.RestEvent;
 import com.example.findfun.model.User;
 import com.example.findfun.service.EventService;
-import jdk.javadoc.doclet.Doclet;
+import com.example.findfun.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +18,11 @@ import java.util.Optional;
 public class EventRestController {
 
     private final EventService service;
+    private final UserService userService;
 
-    public EventRestController(EventService service) {
+    public EventRestController(EventService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -69,11 +69,11 @@ public class EventRestController {
                 .orElseGet(()->ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/invitations")
-    public List<RestEvent> invitations(HttpServletRequest request){
-        User user = (User) request.getSession().getAttribute("user");
+    @GetMapping("/invitations/{username}")
+    public List<RestEvent> invitations(@PathVariable String username){
+        User user = (User) userService.findByUsername(username);
         List<RestEvent> restEvents = new ArrayList<>();
-        List<Event> events = user.getInterestedEvents();
+        List<Event> events = user.getInvitedEvents();
         events.forEach(event -> restEvents.add(new RestEvent(event)));
         return restEvents;
     }
