@@ -32,4 +32,6 @@ public interface EventService {
     public List<Event> findAllOver();
 
     void delete(Long id);
+
+    List<Event> findAllByCreatedUser(User user);
 }

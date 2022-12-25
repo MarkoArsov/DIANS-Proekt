@@ -128,4 +128,9 @@ public class EventServiceImpl implements EventService {
         repository.save(event);
     }
 
+
+    @Override
+    public List<Event> findAllByCreatedUser(User user){
+        return repository.findAllByCreatedUser(user);
+    }
 }

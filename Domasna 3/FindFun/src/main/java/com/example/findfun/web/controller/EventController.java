@@ -170,6 +170,15 @@ public class EventController {
         return "home";
     }
 
+    @GetMapping("/myEvents")
+    public String myEvents(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        List<Event> events = service.findAllByCreatedUser(user);
+        model.addAttribute("user",user);
+        model.addAttribute("events", events);
+        return "myEvents";
+    }
+
     @PostMapping("/comment")
     public String addComment(@RequestParam String comment,
                              @RequestParam Long eventID,
