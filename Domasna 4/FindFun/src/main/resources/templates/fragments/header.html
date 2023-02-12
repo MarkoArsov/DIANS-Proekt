@@ -1,6 +1,7 @@
 <nav xmlns:th="http://www.thymeleaf.org">
+    <link rel="https://fonts.googleapis.com/css?family=Montserrat">
     <div class="nav-wrapper">
-        <a href="/events" class="brand-logo">FindFun</a>
+        <a href="/events" class="brand-logo"><img class="logo-img" src="../img/logo9.png" alt="FindFun logo"> </a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <th:block th:if="${session.user == null}" >
@@ -16,4 +17,20 @@
             </th:block>
         </ul>
     </div>
+    <style>
+        img{
+            width:100%;
+            max-width:100%;
+        }
+        li{
+            font-family: "Montserrat", sans-serif;
+            font-weight: bolder;
+            color: #5c80bc;
+        }
+        li a{
+            color: #5c80bc !important;
+            font-size: 25px !important;
+        }
+
+    </style>
 </nav>

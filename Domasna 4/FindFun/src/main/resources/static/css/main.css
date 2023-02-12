@@ -139,3 +139,8 @@
 .eventTitle{
     font-size: 40px;
 }
+
+#list-events, .button, .buttonActive, #search-input{
+    font-family: "Montserrat", sans-serif;
+}
+
