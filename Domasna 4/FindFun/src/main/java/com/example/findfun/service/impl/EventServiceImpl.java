@@ -1,12 +1,11 @@
 package com.example.findfun.service.impl;
 
-import com.example.findfun.VO.CommentList;
 import com.example.findfun.VO.LocalComment;
 import com.example.findfun.model.Comment;
 import com.example.findfun.model.Event;
 import com.example.findfun.model.User;
-import com.example.findfun.service.repository.CommentRepository;
-import com.example.findfun.service.repository.EventRepository;
+import com.example.findfun.repository.CommentRepository;
+import com.example.findfun.repository.EventRepository;
 import com.example.findfun.service.EventService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -142,7 +141,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<LocalComment> getComments(Long eventId) {
-        String url = "http://localhost:8081/comments/" + eventId;
+        String url = "http://comments:8081/comments/" + eventId;
         LocalComment[] commentsArr = restTemplate.getForObject(url, LocalComment[].class);
         List<LocalComment> comments = new ArrayList<>(Arrays.asList(commentsArr));
         return comments.stream().sorted(Comparator.comparing(LocalComment::getDateCreated, Comparator.reverseOrder())).collect(Collectors.toList());
